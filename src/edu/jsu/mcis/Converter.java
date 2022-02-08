@@ -70,9 +70,32 @@ public class Converter {
             List<String[]> full = reader.readAll();
             Iterator<String[]> iterator = full.iterator();
             
-            // INSERT YOUR CODE HERE
+            String[] line = iterator.next();
             
-        }        
+            JSONArray records = new JSONArray();            // Container for all records
+            LinkedHashMap<String, String> jsonObject = new LinkedHashMap<>();       // Container for individual records
+            String[] record;
+            
+            
+            while (iterator.hasNext()) {                    // Iterate through all records
+                record = iterator.next();                   // Get next record
+                jsonObject = new LinkedHashMap<>();              // Create new JSON object container
+                
+                    for (int i = 0; i < line.length; ++i) { // Iterate through column headings
+                        
+                        jsonObject.put(line[i], record[i]); // Pair headings with fields
+                    }
+                records.add(jsonObject);                    // Add JSON object to JSONArray
+            }
+                
+           String jsonString = JSONValue.toJSONString(records);
+           
+           System.out.println(jsonString);
+           
+           
+      
+        }       
+        
         catch(Exception e) { e.printStackTrace(); }
         
         return results.trim();
@@ -84,11 +107,30 @@ public class Converter {
         String results = "";
         
         try {
-
+            
+            JSONParser parser = new JSONParser();
+            Object Object = new Object();
+            JSONArray jsonArray = new JSONArray();
+            
+            Object =  parser.parse(jsonString);
+            
+            jsonArray.add(Object);
+            
+            List<String[]> full= jsonArray;
+            Iterator<String[]> iterator = full.iterator();
+            
+            String [] data = iterator.next();
+            
             StringWriter writer = new StringWriter();
             CSVWriter csvWriter = new CSVWriter(writer, ',', '"', '\\', "\n");
             
-            // INSERT YOUR CODE HERE
+            while (iterator.hasNext()){
+                csvWriter.writeNext(data);
+            }
+            
+            String csvString = writer.toString();
+            
+            System.out.println(csvString);
             
         }
         
