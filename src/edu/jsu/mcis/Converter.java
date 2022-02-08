@@ -109,12 +109,11 @@ public class Converter {
         try {
             
             JSONParser parser = new JSONParser();
-            Object Object = new Object();
+            JSONObject jsonObject = (JSONObject)parser.parse(jsonString);
             JSONArray jsonArray = new JSONArray();
             
-            Object =  parser.parse(jsonString);
-            
-            jsonArray.add(Object);
+            jsonArray.clear();
+            jsonArray.add(jsonObject);
             
             List<String[]> full= jsonArray;
             Iterator<String[]> iterator = full.iterator();
